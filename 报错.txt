@@ -1,0 +1,733 @@
+DDevelopdevecoDevEco Studiotoolsnodenode.exe DDevelopdevecoDevEco Studiotoolshvigorbinhvigorw.js --mode module -p module=entry@default -p product=default -p requiredDeviceType=phone assembleHap --analyze=normal --parallel --incremental --daemon
+ hvigor UP-TO-DATE entrydefault@PreBuild...  
+ hvigor UP-TO-DATE commondefault@PreBuild...  
+ hvigor UP-TO-DATE minedefault@PreBuild...  
+ hvigor UP-TO-DATE markdowndefault@PreBuild...  
+ hvigor UP-TO-DATE stardefault@PreBuild...  
+ hvigor Finished entrydefault@CreateModuleInfo... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@GenerateMetadata...  
+ hvigor Finished entrydefault@PreCheckSyscap... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@GeneratePkgContextInfo...  
+ hvigor Finished entrydefault@GeneratePkgSdkInfo... after 3 ms 
+ hvigor Finished entrydefault@ProcessIntegratedHsp... after 1 ms 
+ hvigor UP-TO-DATE commondefault@CreateHarBuildProfile...  
+ hvigor Finished commondefault@ConfigureCmake... after 1 ms 
+ hvigor UP-TO-DATE commondefault@MergeProfile...  
+ hvigor UP-TO-DATE markdowndefault@CreateHarBuildProfile...  
+ hvigor Finished markdowndefault@ConfigureCmake... after 1 ms 
+ hvigor UP-TO-DATE markdowndefault@MergeProfile...  
+ hvigor Finished entrydefault@SyscapTransform... after 5 ms 
+ hvigor UP-TO-DATE entrydefault@ProcessRouterMap...  
+ hvigor UP-TO-DATE entrydefault@ProcessShareConfig...  
+ hvigor Finished entrydefault@ProcessStartupConfig... after 6 ms 
+ hvigor UP-TO-DATE minedefault@CreateHarBuildProfile...  
+ hvigor Finished commondefault@BuildNativeWithCmake... after 1 ms 
+ hvigor UP-TO-DATE minedefault@MergeProfile...  
+ hvigor UP-TO-DATE stardefault@CreateHarBuildProfile...  
+ hvigor Finished markdowndefault@BuildNativeWithCmake... after 1 ms 
+ hvigor UP-TO-DATE stardefault@MergeProfile...  
+ hvigor UP-TO-DATE entrydefault@GenerateLoaderJson...  
+ hvigor Finished commondefault@BuildNativeWithNinja... after 1 ms 
+ hvigor Finished minedefault@ConfigureCmake... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@CreateBuildProfile...  
+ hvigor Finished markdowndefault@BuildNativeWithNinja... after 1 ms 
+ hvigor Finished stardefault@ConfigureCmake... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@MergeProfile...  
+ hvigor UP-TO-DATE commondefault@ProcessLibs...  
+ hvigor Finished minedefault@BuildNativeWithCmake... after 1 ms 
+ hvigor UP-TO-DATE markdowndefault@ProcessLibs...  
+ hvigor Finished stardefault@BuildNativeWithCmake... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@MakePackInfo...  
+ hvigor UP-TO-DATE entrydefault@ProcessProfile...  
+ hvigor UP-TO-DATE commondefault@DoNativeStrip...  
+ hvigor UP-TO-DATE markdowndefault@DoNativeStrip...  
+ hvigor Finished entrydefault@ConfigureCmake... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@ProcessResource...  
+ hvigor Finished minedefault@BuildNativeWithNinja... after 1 ms 
+ hvigor Finished stardefault@BuildNativeWithNinja... after 1 ms 
+ hvigor Finished entrydefault@BuildNativeWithCmake... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@CompileResource...  
+ hvigor UP-TO-DATE minedefault@ProcessLibs...  
+ hvigor UP-TO-DATE stardefault@ProcessLibs...  
+ hvigor Finished entrydefault@BuildJS... after 3 ms 
+ hvigor UP-TO-DATE minedefault@DoNativeStrip...  
+ hvigor UP-TO-DATE stardefault@DoNativeStrip...  
+ hvigor Finished entrydefault@BuildNativeWithNinja... after 1 ms 
+ hvigor UP-TO-DATE entrydefault@ProcessLibs...  
+ hvigor UP-TO-DATE entrydefault@DoNativeStrip...  
+ hvigor UP-TO-DATE entrydefault@CacheNativeLibs...  
+ hvigor ERROR Failed entrydefault@CompileArkTS... 
+ hvigor WARN 
+1 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibutilscontrollerlvFootnoteController.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+2 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibIndex.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+3 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvTitle.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+4 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvText.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+5 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvCode.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+6 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvLink.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+7 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvQuote.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+8 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibdomainLvImage.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+9 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetslv-markdown-inlibutilscommonindex.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+10 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhanceconstantCodeTheme.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+11 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancemodelCodeHighlight.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+12 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets809
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+13 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets1009
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+14 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets1209
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+15 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets1419
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+16 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets1629
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+17 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets1849
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+18 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets19739
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+19 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets20351
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+20 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets20945
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+21 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets21542
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+22 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets22145
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+23 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets22755
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+24 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets23352
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+25 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets24046
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+26 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets24650
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+27 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets25354
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+28 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets26053
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+29 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets26640
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+30 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets27241
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+31 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets27958
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+32 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets28543
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+33 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets29255
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+34 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets29854
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+35 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets30457
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+36 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets31055
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+37 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets31658
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+38 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets32354
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+39 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets33059
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+40 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets33754
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+41 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets34348
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+42 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets35054
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+43 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets35654
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+44 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets36251
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+45 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets36847
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+46 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets375121
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+47 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets38150
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+48 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets38755
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+49 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets39360
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+50 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets40054
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+51 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets40751
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+52 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets41458
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+53 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets42151
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+54 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets42858
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+55 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets43536
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+56 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets44147
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+57 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets44751
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+58 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets45448
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+59 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets46142
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+60 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets46747
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+61 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets47439
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+62 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets48140
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+63 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets48841
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+64 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets49442
+ Type notation using this is not supported (arkts-no-typing-with-this)
+
+65 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancecontrollerMarkdonwController.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+66 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhancemodelMdCallback.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+67 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-insrcmainetsenhanceindex.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+68 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYoh_modules.ohpm@luvi+lv-markdown-in@3.2.9oh_modules@luvilv-markdown-inIndex.d.ets21
+ Switching off type checks with in-place comments is not allowed (arkts-strict-typing-required)
+
+69 WARN ArkTSWARN For details about ArkTS syntax errors, see FAQs
+70 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets8111
+ 'animateTo' has been deprecated.
+
+71 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets10426
+ 'getContext' has been deprecated.
+
+72 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets10831
+ 'px2vp' has been deprecated.
+
+73 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets11513
+ 'px2vp' has been deprecated.
+
+74 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets12525
+ 'px2vp' has been deprecated.
+
+75 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentFloatingBallView.ets12626
+ 'px2vp' has been deprecated.
+
+76 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets4727
+ Function may throw exceptions. Special handling is required.
+
+77 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets4811
+ Function may throw exceptions. Special handling is required.
+
+78 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets4911
+ Function may throw exceptions. Special handling is required.
+
+79 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets8512
+ Function may throw exceptions. Special handling is required.
+
+80 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets9031
+ Function may throw exceptions. Special handling is required.
+
+81 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets10513
+ Function may throw exceptions. Special handling is required.
+
+82 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets11412
+ Function may throw exceptions. Special handling is required.
+
+83 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets12511
+ Function may throw exceptions. Special handling is required.
+
+84 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets13411
+ Function may throw exceptions. Special handling is required.
+
+85 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets14211
+ Function may throw exceptions. Special handling is required.
+
+86 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets15329
+ Function may throw exceptions. Special handling is required.
+
+87 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets16129
+ Function may throw exceptions. Special handling is required.
+
+88 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets16929
+ Function may throw exceptions. Special handling is required.
+
+89 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets17829
+ Function may throw exceptions. Special handling is required.
+
+90 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets18629
+ Function may throw exceptions. Special handling is required.
+
+91 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets19429
+ Function may throw exceptions. Special handling is required.
+
+92 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets1965
+ Function may throw exceptions. Special handling is required.
+
+93 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets20329
+ Function may throw exceptions. Special handling is required.
+
+94 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets2055
+ Function may throw exceptions. Special handling is required.
+
+95 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets21229
+ Function may throw exceptions. Special handling is required.
+
+96 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets2145
+ Function may throw exceptions. Special handling is required.
+
+97 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets22431
+ Function may throw exceptions. Special handling is required.
+
+98 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets23813
+ Function may throw exceptions. Special handling is required.
+
+99 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets25112
+ Function may throw exceptions. Special handling is required.
+
+100 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets25631
+ Function may throw exceptions. Special handling is required.
+
+101 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets26913
+ Function may throw exceptions. Special handling is required.
+
+102 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets27911
+ Function may throw exceptions. Special handling is required.
+
+103 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets28629
+ Function may throw exceptions. Special handling is required.
+
+104 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets29429
+ Function may throw exceptions. Special handling is required.
+
+105 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets30329
+ Function may throw exceptions. Special handling is required.
+
+106 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3055
+ Function may throw exceptions. Special handling is required.
+
+107 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3127
+ Function may throw exceptions. Special handling is required.
+
+108 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3165
+ Function may throw exceptions. Special handling is required.
+
+109 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets31827
+ Function may throw exceptions. Special handling is required.
+
+110 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets31847
+ Function may throw exceptions. Special handling is required.
+
+111 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets31920
+ Function may throw exceptions. Special handling is required.
+
+112 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets31940
+ Function may throw exceptions. Special handling is required.
+
+113 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32019
+ Function may throw exceptions. Special handling is required.
+
+114 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32039
+ Function may throw exceptions. Special handling is required.
+
+115 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32120
+ Function may throw exceptions. Special handling is required.
+
+116 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32140
+ Function may throw exceptions. Special handling is required.
+
+117 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32222
+ Function may throw exceptions. Special handling is required.
+
+118 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets32240
+ Function may throw exceptions. Special handling is required.
+
+119 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets33114
+ Function may throw exceptions. Special handling is required.
+
+120 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3325
+ Function may throw exceptions. Special handling is required.
+
+121 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3537
+ Function may throw exceptions. Special handling is required.
+
+122 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3565
+ Function may throw exceptions. Special handling is required.
+
+123 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets35818
+ Function may throw exceptions. Special handling is required.
+
+124 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets35836
+ Function may throw exceptions. Special handling is required.
+
+125 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets35920
+ Function may throw exceptions. Special handling is required.
+
+126 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets35940
+ Function may throw exceptions. Special handling is required.
+
+127 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets36025
+ Function may throw exceptions. Special handling is required.
+
+128 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets36043
+ Function may throw exceptions. Special handling is required.
+
+129 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets36214
+ Function may throw exceptions. Special handling is required.
+
+130 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetsserviceMdDbService.ets3635
+ Function may throw exceptions. Special handling is required.
+
+131 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetscomponentEmptyComponent.ets1321
+ 'getContext' has been deprecated.
+
+132 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturemarkdownsrcmainetspageMdView.ets3021
+ 'getContext' has been deprecated.
+
+133 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets2638
+ Function may throw exceptions. Special handling is required.
+
+134 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets295
+ Function may throw exceptions. Special handling is required.
+
+135 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets3225
+ Function may throw exceptions. Special handling is required.
+
+136 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets3528
+ Function may throw exceptions. Special handling is required.
+
+137 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets3839
+ 'px2vp' has been deprecated.
+
+138 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets3942
+ 'px2vp' has been deprecated.
+
+139 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets4343
+ 'px2vp' has been deprecated.
+
+140 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetsentryabilityEntryAbility.ets4546
+ 'px2vp' has been deprecated.
+
+141 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageStarredPage.ets2421
+ 'getContext' has been deprecated.
+
+142 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupDetailPage.ets2621
+ 'getContext' has been deprecated.
+
+143 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageStar.ets2821
+ 'getContext' has been deprecated.
+
+144 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2221
+ 'getContext' has been deprecated.
+
+145 WARN ArkTSWARN File CUsers28966DevEcoStudioProjectsMarkdownXYentrysrcmainetspagesIndex.ets2721
+ 'getContext' has been deprecated.
+
+ hvigor ERROR 00305015 Rollup Error
+Error Message Unexpected token (Note that you need plugins to import files that are not JavaScript)
+. At file CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets221
+1 ERROR 10605071 ArkTS Compiler Error
+Error Message The comma operator , is supported only in for loops (arkts-no-comma-outside-loops) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets14015
+
+
+2 ERROR 10605090 ArkTS Compiler Error
+Error Message Function return type inference is limited (arkts-no-implicit-return-types) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2216
+
+
+3 ERROR 10605008 ArkTS Compiler Error
+Error Message Use explicit types instead of any, unknown (arkts-no-any-unknown) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22116
+
+
+4 ERROR 10605008 ArkTS Compiler Error
+Error Message Use explicit types instead of any, unknown (arkts-no-any-unknown) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22121
+
+
+5 ERROR 10605008 ArkTS Compiler Error
+Error Message Use explicit types instead of any, unknown (arkts-no-any-unknown) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22138
+
+
+6 ERROR 10605008 ArkTS Compiler Error
+Error Message Use explicit types instead of any, unknown (arkts-no-any-unknown) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22143
+
+
+7 ERROR 10605071 ArkTS Compiler Error
+Error Message The comma operator , is supported only in for loops (arkts-no-comma-outside-loops) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22161
+
+
+8 ERROR 10605038 ArkTS Compiler Error
+Error Message Object literal must correspond to some explicitly declared class or interface (arkts-no-untyped-obj-literals) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22165
+
+
+9 ERROR 10605093 ArkTS Compiler Error
+Error Message Using this inside stand-alone functions is not supported (arkts-no-standalone-this) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22711
+
+
+10 ERROR 10605093 ArkTS Compiler Error
+Error Message Using this inside stand-alone functions is not supported (arkts-no-standalone-this) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22711
+
+
+11 ERROR 10605093 ArkTS Compiler Error
+Error Message Using this inside stand-alone functions is not supported (arkts-no-standalone-this) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets23028
+
+
+12 ERROR 10605093 ArkTS Compiler Error
+Error Message Using this inside stand-alone functions is not supported (arkts-no-standalone-this) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets25528
+
+
+13 ERROR 10605093 ArkTS Compiler Error
+Error Message Using this inside stand-alone functions is not supported (arkts-no-standalone-this) At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets26431
+
+
+14 ERROR 10505001 ArkTS Compiler Error
+Error Message ';' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets17861
+
+
+15 ERROR 10505001 ArkTS Compiler Error
+Error Message Declaration or statement expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets18325
+
+
+16 ERROR 10505001 ArkTS Compiler Error
+Error Message ',' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets18767
+
+
+17 ERROR 10505001 ArkTS Compiler Error
+Error Message ',' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets19019
+
+
+18 ERROR 10505001 ArkTS Compiler Error
+Error Message ';' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets19161
+
+
+19 ERROR 10505001 ArkTS Compiler Error
+Error Message Declaration or statement expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets19911
+
+
+20 ERROR 10505001 ArkTS Compiler Error
+Error Message ';' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets20311
+
+
+21 ERROR 10505001 ArkTS Compiler Error
+Error Message Unexpected token. A constructor, method, accessor, or property was expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2215
+
+
+22 ERROR 10505001 ArkTS Compiler Error
+Error Message ',' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22120
+
+
+23 ERROR 10505001 ArkTS Compiler Error
+Error Message ',' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22142
+
+
+24 ERROR 10505001 ArkTS Compiler Error
+Error Message ',' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22161
+
+
+25 ERROR 10505001 ArkTS Compiler Error
+Error Message Expression expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22162
+
+
+26 ERROR 10505001 ArkTS Compiler Error
+Error Message ';' expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2316
+
+
+27 ERROR 10505001 ArkTS Compiler Error
+Error Message Declaration or statement expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2325
+
+
+28 ERROR 10505001 ArkTS Compiler Error
+Error Message Declaration or statement expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2733
+
+
+29 ERROR 10505001 ArkTS Compiler Error
+Error Message Declaration or statement expected. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2741
+
+
+30 ERROR 10505001 ArkTS Compiler Error
+Error Message Duplicate identifier 'this'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22116
+
+
+31 ERROR 10505001 ArkTS Compiler Error
+Error Message Duplicate identifier 'this'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22138
+
+
+32 ERROR 10505001 ArkTS Compiler Error
+Error Message Cannot find name 'HdsNavDestinationAttribute'. Did you mean 'HdsNavDestinationTitleMode' At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets13318
+
+
+33 ERROR 10505001 ArkTS Compiler Error
+Error Message Type '{ builder () = void;  any; }' is not assignable to type 'CustomBuilder  SwipeActionItem'.
+  Object literal may only specify known properties, and '(Missing)' does not exist in type '(() = any)  SwipeActionItem'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets18325
+
+
+34 ERROR 10505001 ArkTS Compiler Error
+Error Message Cannot find name 'scrollBar'. Did you mean 'ScrollBar' At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets19912
+
+
+35 ERROR 10505001 ArkTS Compiler Error
+Error Message A 'this' parameter must be the first parameter. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22138
+
+
+36 ERROR 10505001 ArkTS Compiler Error
+Error Message Left side of comma operator is unused and has no side effects. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22161
+
+
+37 ERROR 10505001 ArkTS Compiler Error
+Error Message Object is possibly 'undefined'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets22711
+
+
+38 ERROR 10505001 ArkTS Compiler Error
+Error Message Object is possibly 'undefined'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets23028
+
+
+39 ERROR 10505001 ArkTS Compiler Error
+Error Message Cannot find name 'backgroundColor'. Did you mean 'BackgroundColorStyle' At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets2326
+
+
+40 ERROR 10505001 ArkTS Compiler Error
+Error Message Object is possibly 'undefined'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets25528
+
+
+41 ERROR 10505001 ArkTS Compiler Error
+Error Message Object is possibly 'undefined'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets26431
+
+
+42 ERROR 10505001 ArkTS Compiler Error
+Error Message Object is possibly 'undefined'. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets27016
+
+
+43 ERROR 10905204 ArkTS Compiler Error
+Error Message 'List({ space 12 }) {
+                ForEach(this.filteredGroups, (group FileGroup) = {
+                  ListItem() {
+                    Row() {
+                      SymbolGlyph($r('sys.symbol.folder_fill'))
+                        .fontSize($r('sys.float.Title_M'))
+                        .fontColor([$r('sys.color.brand')]);
+                      Column() {
+                        Text(group.name)
+                          .fontSize($r('sys.float.Subtitle_M'))
+                          .fontWeight(FontWeight.Medium)
+                          .fontColor($r('sys.color.font_primary'))
+                          .maxLines(1)
+                          .textOverflow({ overflow TextOverflow.Ellipsis });
+                        Text(`${this.groupFileCounts.get(group.id)  0} 个文件`)
+                          .fontSize($r('sys.float.Caption_S'))
+                          .fontColor($r('sys.color.font_secondary'))
+                          .margin({ top 2 });
+                      }
+                      .alignItems(HorizontalAlign.Start)
+                      .margin({ left $r('sys.float.padding_level6') })
+                      .layoutWeight(1);
+                      Blank();
+                      SymbolGlyph($r('sys.symbol.chevron_forward'))
+                        .fontSize(14)
+                        .fontColor([$r('sys.color.font_tertiary')]);
+                    }
+                    .width('100%')
+                    .padding($r('sys.float.padding_level6'))
+                    .backgroundColor($r('sys.color.comp_background_primary'))
+                    .borderRadius(16)
+                    .onClick(() = {
+                      this.pathStack.pushPath({ name 'GroupDetail', param group });
+                    });
+                  }
+                  .swipeAction({
+                    end {
+                      builder () = {
+                        Button({ type ButtonType.Circle }) {
+                          SymbolGlyph($r('sys.symbol.trash'))
+                            .fontSize(16)
+                            .fontColor([Color.White]);
+                        }
+                        .backgroundColor('#FF5A5F')
+                        .width(48)
+                        .height(48)
+                        .margin({ left 8 })
+                        .onClick(() = this.deleteGroup(group.id));
+                      }
+                    }
+                  });
+                }, (group FileGroup) = group.id.toString()' does not meet UI component syntax. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets14015
+
+
+44 ERROR 10905209 ArkTS Compiler Error
+Error Message Only UI component syntax can be written here. At File CUsers28966DevEcoStudioProjectsMarkdownXYfeaturestarsrcmainetspageGroupListPage.ets19162
+
+
+COMPILE RESULTFAIL {ERROR45 WARN145}
+
+ Try
+ Run with --stacktrace option to get the stack trace.
+ Run with --debug option to get more log output.
+
+ hvigor ERROR BUILD FAILED in 38 s 764 ms 
+
+进程已结束，退出代码为 -1
