@@ -24,6 +24,7 @@ const SQL_CREATE_GROUPS_TABLE = `CREATE TABLE IF NOT EXISTS file_groups (
 )`;
 
 const SQL_ADD_GROUP_ID = `ALTER TABLE markdown_files ADD COLUMN groupId INTEGER DEFAULT -1`;
+const SQL_ADD_LAST_VIEWED_AT = `ALTER TABLE markdown_files ADD COLUMN lastViewedAt INTEGER DEFAULT 0`;
 
 export class MdDbService {
   private static instance: MdDbService | null = null;
@@ -58,10 +59,15 @@ export class MdDbService {
     try {
       const predicates = new relationalStore.RdbPredicates('markdown_files');
       const resultSet = await store.query(predicates);
-      const hasGroupId = resultSet.columnNames.includes('groupId');
+      const columns = resultSet.columnNames;
+      const hasGroupId = columns.includes('groupId');
+      const hasLastViewedAt = columns.includes('lastViewedAt');
       resultSet.close();
       if (!hasGroupId) {
         await store.executeSql(SQL_ADD_GROUP_ID);
+      }
+      if (!hasLastViewedAt) {
+        await store.executeSql(SQL_ADD_LAST_VIEWED_AT);
       }
     } catch (err) {
       console.error('[MdDbService] 升级检查失败:', JSON.stringify(err));
@@ -83,7 +89,8 @@ export class MdDbService {
       uri: file.uri,
       size: file.size,
       isStar: file.isStar ? 1 : 0,
-      groupId: file.groupId
+      groupId: file.groupId,
+      lastViewedAt: file.lastViewedAt
     };
     return store.insert('markdown_files', value, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
   }
@@ -99,7 +106,8 @@ export class MdDbService {
           uri: file.uri,
           size: file.size,
           isStar: file.isStar ? 1 : 0,
-          groupId: file.groupId
+          groupId: file.groupId,
+          lastViewedAt: file.lastViewedAt
         };
         await store.insert('markdown_files', value, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
       }
@@ -217,6 +225,34 @@ export class MdDbService {
     return count;
   }
 
+  async updateLastViewedAt(sandboxPath: string): Promise<void> {
+    const store = this.ensureStore();
+    const value: relationalStore.ValuesBucket = { lastViewedAt: Date.now() };
+    const predicates = new relationalStore.RdbPredicates('markdown_files');
+    predicates.equalTo('sandboxPath', sandboxPath);
+    await store.update(value, predicates);
+  }
+
+  async queryRecentlyViewed(limit: number = 50): Promise<MarkdownFile[]> {
+    const store = this.ensureStore();
+    const predicates = new relationalStore.RdbPredicates('markdown_files');
+    predicates.greaterThan('lastViewedAt', 0);
+    predicates.orderByDesc('lastViewedAt');
+    predicates.limitAs(limit);
+    const resultSet = await store.query(predicates);
+    return this.parseResultSet(resultSet);
+  }
+
+  async getRecentlyViewedCount(): Promise<number> {
+    const store = this.ensureStore();
+    const predicates = new relationalStore.RdbPredicates('markdown_files');
+    predicates.greaterThan('lastViewedAt', 0);
+    const resultSet = await store.query(predicates);
+    const count = resultSet.rowCount;
+    resultSet.close();
+    return count;
+  }
+
   async syncFromFileSystem(files: MarkdownFile[]): Promise<void> {
     const store = this.ensureStore();
     const dbFiles = await this.queryAll();
@@ -328,8 +364,14 @@ export class MdDbService {
       } catch (e) {
         groupId = -1;
       }
+      let lastViewedAt = 0;
+      try {
+        lastViewedAt = resultSet.getLong(resultSet.getColumnIndex('lastViewedAt'));
+      } catch (e) {
+        lastViewedAt = 0;
+      }
       const groupName = groups.get(groupId) ?? '';
-      result.push(new MarkdownFile(name, uri, sandboxPath, 0, isStar, size, groupId, groupName));
+      result.push(new MarkdownFile(name, uri, sandboxPath, 0, isStar, size, groupId, groupName, lastViewedAt));
     } while (resultSet.goToNextRow());
     resultSet.close();
     return result;

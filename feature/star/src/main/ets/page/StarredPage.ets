@@ -127,7 +127,7 @@ export struct StarredPage {
     Row() {
       SymbolGlyph($r('sys.symbol.doc_plaintext_fill'))
         .fontSize($r('sys.float.Title_M'))
-        .fontColor([$r('sys.color.brand')]);
+        .fontColor(['#FFC83D']);
       Column() {
         Text(item.name)
           .fontSize($r('sys.float.Subtitle_M'))
@@ -138,7 +138,7 @@ export struct StarredPage {
         if (item.groupName) {
           Text(item.groupName)
             .fontSize($r('sys.float.Caption_S'))
-            .fontColor($r('sys.color.brand'))
+            .fontColor($r('sys.color.confirm'))
             .margin({ top: 2 });
         }
       }
@@ -260,7 +260,9 @@ export struct StarredPage {
   SearchBuilder(): void {
     Column() {
       Search({ placeholder: '搜索收藏文件', value: this.searchKeyword })
-        .searchButton('搜索')
+        .searchButton('搜索',{
+          fontColor: '#FFC83D'
+        })
         .onChange((value: string) => {
           this.searchKeyword = value;
           this.applyFilter();

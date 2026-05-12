@@ -1,12 +1,13 @@
 import { HdsAnimationMode, hdsMaterial, HdsNavigation, HdsTabs, HdsTabsController } from '@kit.UIDesignKit';
 import { DarkModeSetting, Mine } from 'mine';
-import { AppStorageV2, SymbolGlyphModifier, window } from '@kit.ArkUI';
+import {  SymbolGlyphModifier, window } from '@kit.ArkUI';
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { MarkdownViewerPage, MdView, MarkdownFile, FileDataSource, MdDbService, FileGroup } from 'markdown';
 import { common } from '@kit.AbilityKit';
 import picker from '@ohos.file.picker';
 import { fileIo as fs } from '@kit.CoreFileKit';
-import { Star, StarredPage, GroupDetailPage, GroupListPage } from 'star';
+import { Star, StarredPage, GroupDetailPage, GroupListPage, RecentPage } from 'star';
+import { motion } from '@kit.MultimodalAwarenessKit';
 
 @Entry
 @Component
@@ -19,7 +20,7 @@ struct Index {
   @State s1: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.house_fill'));
   @State s2: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.square_fill_grid_2x2'));
   @State s3: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.person_crop_circle_fill_1'));
-
+  @State hand: number = 0;
   @StorageProp('currentColorMode') @Watch('onColorModeChange') currentColorMode: number =
     ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
   @Provide('dataSource') dataSource: FileDataSource = new FileDataSource();
@@ -30,6 +31,8 @@ struct Index {
     this.onColorModeChange();
     this.controller.applyHideAnimation(HdsAnimationMode.CLICK_ANIMATION)
   }
+
+
   onColorModeChange(): void {
     // Get the current application window
     let windowClass = AppStorage.get<window.Window>('windowClass') as window.Window;
@@ -71,6 +74,8 @@ struct Index {
       GroupDetailPage({ groupData: param as FileGroup })
     } else if (name === 'GroupList') {
       GroupListPage()
+    } else if (name === 'Recent') {
+      RecentPage()
     } else if (name === 'Mine') {
       Mine()
     }else if(name === 'DarkModeSetting'){

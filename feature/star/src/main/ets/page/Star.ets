@@ -29,6 +29,7 @@ export struct Star {
   @State starCount: number = 0;
   @State totalCount: number = 0;
   @State groupCount: number = 0;
+  @State recentCount: number = 0;
   @State ungroupedCount: number = 0;
   @State groups: FileGroup[] = [];
   @State groupFileMap: Map<number, MarkdownFile[]> = new Map();
@@ -124,6 +125,7 @@ export struct Star {
       this.starCount = await dbService.getStarCount();
       this.totalCount = await dbService.getTotalCount();
       this.groupCount = await dbService.getGroupCount();
+      this.recentCount = await dbService.getRecentlyViewedCount();
       this.groups = await dbService.queryAllGroups();
 
       this.groupFileMap = new Map();
@@ -261,25 +263,29 @@ export struct Star {
                 icon: $r('sys.symbol.doc_plaintext_fill_1'),
                 content: '总数',
                 str1: this.totalCount.toString(),
-                str2: '个'
+                str2: '个',
+                bgcolor: $r('sys.color.brand')
               })
             }
             GridItem() {
               CardItem({
                 icon: $r('sys.symbol.eye'),
                 content: '最近浏览',
-                str1: this.groupCount.toString(),
+                str1: this.recentCount.toString(),
+                str2: '个',
+                bgcolor: $r('sys.color.alert')
               })
-                //.onClick(() => {
-                //  this.pathStack.pushPath({ name: 'MarkdownViewer' });
-                //})
+                .onClick(() => {
+                  this.pathStack.pushPath({ name: 'Recent' });
+                })
             }
             GridItem() {
               CardItem({
                 icon: $r('sys.symbol.star_fill'),
                 content: '收藏',
                 str1: this.starCount.toString(),
-                str2: '个'
+                str2: '个',
+                bgcolor: '#FFC83D',
               })
                 .onClick(() => {
                   this.pathStack.pushPath({ name: 'Starred' });
@@ -290,7 +296,8 @@ export struct Star {
                 icon: $r('sys.symbol.folder_fill'),
                 content: '分组',
                 str1: this.groupCount.toString(),
-                str2: '个'
+                str2: '个',
+                bgcolor: $r('sys.color.confirm')
               })
                 .onClick(() => {
                   this.pathStack.pushPath({ name: 'GroupList' });

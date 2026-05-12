@@ -132,7 +132,9 @@ export struct GroupDetailPage {
   SearchBuilder(): void {
     Column() {
       Search({ placeholder: '搜索分组内文件', value: this.searchKeyword })
-        .searchButton('搜索')
+        .searchButton('搜索', {
+          fontColor: $r('sys.color.confirm')
+        })
         .onChange((value: string) => {
           this.searchKeyword = value;
           this.applyFilter();
@@ -255,7 +257,7 @@ export struct GroupDetailPage {
     Row() {
       SymbolGlyph($r('sys.symbol.doc_plaintext_fill'))
         .fontSize($r('sys.float.Title_M'))
-        .fontColor([$r('sys.color.brand')]);
+        .fontColor([$r('sys.color.confirm')]);
       Column() {
         Text(item.name)
           .fontSize($r('sys.float.Subtitle_M'))

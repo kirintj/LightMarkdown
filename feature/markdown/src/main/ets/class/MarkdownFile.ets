@@ -18,8 +18,9 @@ export class MarkdownFile {
   isStar: boolean;
   groupId: number;
   groupName: string;
+  lastViewedAt: number;
 
-  constructor(name: string, uri: string, sandboxPath: string, size: number, isStar: boolean = false, formattedSize?: string, groupId: number = -1, groupName: string = '') {
+  constructor(name: string, uri: string, sandboxPath: string, size: number, isStar: boolean = false, formattedSize?: string, groupId: number = -1, groupName: string = '', lastViewedAt: number = 0) {
     this.name = name;
     this.uri = uri;
     this.sandboxPath = sandboxPath;
@@ -27,6 +28,7 @@ export class MarkdownFile {
     this.isStar = isStar;
     this.groupId = groupId;
     this.groupName = groupName;
+    this.lastViewedAt = lastViewedAt;
   }
 }
 export class FileDataSource implements IDataSource {
@@ -76,7 +78,11 @@ export class FileDataSource implements IDataSource {
     }
   }
   public clear(): void {
+    const oldCount = this.dataArray.length;
     this.dataArray = [];
+    for (let i = oldCount - 1; i >= 0; i--) {
+      this.notifyDataDelete(i);
+    }
   }
   public getAll(): ReadonlyArray<MarkdownFile> {
     return this.dataArray;

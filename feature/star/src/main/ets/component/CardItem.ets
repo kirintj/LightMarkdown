@@ -4,13 +4,14 @@ export struct CardItem{
   @Prop content: string;
   @Prop str1 : string;
   @Prop str2 : string;
+  @Prop bgcolor: Resource | string;
   build() {
     Column(){
       Row(){
         Stack({ alignContent: Alignment.Center }) {
           Circle()
-            .stroke($r('sys.color.brand'))
-            .fill($r('sys.color.brand'))
+            .stroke(this.bgcolor)
+            .fill(this.bgcolor)
             .width(24)
             .height(24);
           SymbolGlyph(this.icon)

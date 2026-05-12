@@ -11,6 +11,11 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "requestPermissions": [
+      {
+        "name" : "ohos.permission.DETECT_GESTURE"
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
@@ -44,8 +49,8 @@
             "name": "ohos.extension.backup",
             "resource": "$profile:backup_config"
           }
-        ],
+        ]
       }
-    ],
+    ]
   }
 }
