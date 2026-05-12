@@ -3,6 +3,7 @@ import { LengthMetrics, promptAction, SymbolGlyphModifier } from '@kit.ArkUI';
 import { MarkdownFile, FileDataSource, FileGroup, MdDbService } from 'markdown';
 import { common } from '@kit.AbilityKit';
 import { HdsListItem, hdsMaterial, HdsNavDestinationTitleMode } from '@kit.UIDesignKit';
+import { HdsMiniBarButton } from 'hds_button';
 
 const TITLE_BAR_HEIGHT_FREE: number = 56 + 56 + 8;
 
@@ -259,18 +260,20 @@ export struct StarredPage {
   @Builder
   SearchBuilder(): void {
     Column() {
-      Search({ placeholder: '搜索收藏文件', value: this.searchKeyword })
-        .searchButton('搜索',{
-          fontColor: '#FFC83D'
-        })
-        .onChange((value: string) => {
-          this.searchKeyword = value;
-          this.applyFilter();
-        })
-        .onSubmit((value: string) => {
-          this.searchKeyword = value;
-          this.applyFilter();
-        });
+        Search({ placeholder: '搜索收藏文件', value: this.searchKeyword })
+          .backgroundColor(Color.Transparent)
+          .margin(0)
+          .searchButton('搜索',{
+            fontColor: '#FFC83D'
+          })
+          .onChange((value: string) => {
+            this.searchKeyword = value;
+            this.applyFilter();
+          })
+          .onSubmit((value: string) => {
+            this.searchKeyword = value;
+            this.applyFilter();
+          });
     }
     .padding({ left: 16, right: 16 });
   }

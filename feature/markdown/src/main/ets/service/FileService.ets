@@ -37,7 +37,7 @@ export class FileService {
         for (let fileName of fileNames) {
           const path: string = `${targetDir}/${fileName}`;
           const stats = fs.statSync(path);
-          fileList.push(new MarkdownFile(fileName, '', path, stats.size));
+          fileList.push(new MarkdownFile(fileName, '', path, stats.size, false, undefined, -1, '', 0, stats.mtime * 1000));
         }
       }
     } catch (err) {

@@ -1,7 +1,7 @@
 import { HdsNavDestination, ScrollEffectType } from "@hms.hds.hdsBaseComponent";
 import { hdsMaterial, HdsNavDestinationTitleMode } from "@kit.UIDesignKit";
 import { MarkdownFile, FileDataSource, FileGroup, MdDbService } from "markdown";
-import { common } from "@kit.AbilityKit";
+import { common, ConfigurationConstant } from "@kit.AbilityKit";
 import { promptAction } from "@kit.ArkUI";
 import { CardItem } from '../component/CardItem'
 import { McBarChart, McPieChart, Options } from '@mcui/mccharts'
@@ -26,6 +26,8 @@ export struct Star {
   @State titleMode: HdsNavDestinationTitleMode = HdsNavDestinationTitleMode.MINI;
   @Consume('dataSource') dataSource: FileDataSource;
   @Consume('dataVersion') @Watch('onDataVersionChange') dataVersion: number;
+  @StorageProp('currentColorMode') @Watch('onChartColorModeChange') currentColorMode: number =
+    ConfigurationConstant.ColorMode.COLOR_MODE_LIGHT;
   @State starCount: number = 0;
   @State totalCount: number = 0;
   @State groupCount: number = 0;
@@ -44,7 +46,7 @@ export struct Star {
       show: true,
       backgroundColor: '#E6FFFFFF',
       borderWidth: 0,
-      textStyle: { color: '#182431', fontSize: 13 }
+      textStyle: { color: '#182431', fontSize: 40 }
     },
     grid: { left: 36, right: 12, top: 12, bottom: 28 },
     color: ['#317AF7', '#FFC83D', '#36C972', '#C5C5C5'],
@@ -158,6 +160,7 @@ export struct Star {
           data: pieData
         }]
       });
+      this.updateChartColors();
     } catch (err) {
       console.error('[Star] 加载数据失败:', JSON.stringify(err));
     }
@@ -180,6 +183,52 @@ export struct Star {
     }
   }
 
+  private isDarkMode(): boolean {
+    return this.currentColorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK;
+  }
+
+  private updateChartColors(): void {
+    let axisLabelColor = this.isDarkMode() ? '#99FFFFFF' : '#99000000';
+    let splitLineColor = this.isDarkMode() ? '#14FFFFFF' : '#14000000';
+    let tooltipBg = this.isDarkMode() ? '#CC222222' : '#E6FFFFFF';
+    let tooltipText = this.isDarkMode() ? '#E6FFFFFF' : '#182431';
+    let legendColor = this.isDarkMode() ? '#DEFFFFFF' : '#E6000000';
+    let labelColor = this.isDarkMode() ? '#CCFFFFFF' : '#CC000000';
+    let labelLineColor = this.isDarkMode() ? '#66FFFFFF' : '#99000000';
+
+    this.overviewOption.setVal({
+      xAxis: {
+        axisLabel: { color: axisLabelColor , size: 42}
+      },
+      yAxis: {
+        splitLine: { show: true, lineStyle: { color: splitLineColor, type: 'dashed' } },
+        axisLabel: { color: axisLabelColor }
+      },
+      tooltip: {
+        backgroundColor: tooltipBg,
+        textStyle: { color: tooltipText }
+      }
+    });
+
+    this.groupOption.setVal({
+      legend: {
+        textStyle: { color: legendColor }
+      },
+      tooltip: {
+        backgroundColor: tooltipBg,
+        textStyle: { color: tooltipText }
+      },
+      series: [{
+        name: '分组分布',
+        label: { color: labelColor },
+        labelLine: { show: true, length: 8, length2: 6, lineStyle: { color: labelLineColor } }
+      }]
+    });
+  }
+
+  onChartColorModeChange(): void {
+    this.updateChartColors();
+  }
 
   @Builder
   sectionTitle(title: string) {
@@ -317,7 +366,7 @@ export struct Star {
           }
           .width('100%')
           .height(240)
-          .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+          .padding({ top: 8, bottom: 8 })
           .backgroundColor($r('sys.color.comp_background_primary'))
           .borderRadius(16)
           .shadow({ radius: 8, color: '#0A000000', offsetY: 2 })

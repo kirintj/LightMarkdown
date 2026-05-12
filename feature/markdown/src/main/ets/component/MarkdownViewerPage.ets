@@ -6,63 +6,95 @@ import { common } from '@kit.AbilityKit';
 import { systemShare, harmonyShare } from '@kit.ShareKit';
 import { uniformTypeDescriptor as utd } from '@kit.ArkData';
 import { fileUri } from '@kit.CoreFileKit';
-import { BusinessError } from '@kit.BasicServicesKit';
+import { promptAction } from '@kit.ArkUI';
 
-const TITLE_BAR_HEIGHT_FREE: number = 58 + 16;
+const TITLE_BAR_HEIGHT_FREE: number = 58 + 16 + 4;
+const DEFAULT_SHARE_DESCRIPTION: string = 'Markdown文档';
 
 @Component
 export struct MarkdownViewerPage {
+  // 路由状态
   @Consume('pathStack') pathStack: NavPathStack;
   @Consume('dataVersion') dataVersion: number;
   fileData: MarkdownFile = new MarkdownFile('', '', '', 0);
+
+  // 滚动 & 控制器
   private scroller: Scroller = new Scroller();
-  @State blankHeight: number = TITLE_BAR_HEIGHT_FREE;
-  @StorageProp('currentColorMode') currentColorMode: number = 0;
   controller: MarkdownController = new MarkdownController();
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+
+  // UI 状态
+  @State blankHeight: number = TITLE_BAR_HEIGHT_FREE;
+  @State isLoading: boolean = true;
+  @State showMarkdown: boolean = false;
+
+  // 主题
+  @StorageProp('currentColorMode') @Watch('onColorModeChange') currentColorMode: number = 0;
+
+  // 分享
   private shareController: systemShare.ShareController | null = null;
 
+  // 防护标记
+  private isShareListenerRegistered: boolean = false;
+  private isDestroyed: boolean = false;
+
   aboutToAppear(): void {
+    this.initMarkdownController();
+    this.recordView();
+    this.registerHarmonyShareListeners();
+    setTimeout(() => {
+      if (!this.isDestroyed) {
+        this.showMarkdown = true;
+      }
+    }, 100);
+  }
+
+  aboutToDisappear(): void {
+    this.isDestroyed = true;
+    this.unregisterHarmonyShareListeners();
+    this.dismissShareController();
+  }
+
+  private initMarkdownController(): void {
     this.controller
       .setTitleColor($r("sys.color.title_primary_color"))
       .setTextColor($r("sys.color.ohos_fa_text_primary"))
       .setQuoteBackgroundColor($r("sys.color.background_secondary"))
       .setQuoteBorderColor($r('sys.color.brand'));
-
     this.controller.setCodeBlockTheme(this.currentColorMode === 0 ? 'dark' : 'light');
-
-    this.recordView();
-    this.registerHarmonyShareListeners();
   }
 
-  aboutToDisappear(): void {
-    this.unregisterHarmonyShareListeners();
-    this.dismissShareController();
+  onColorModeChange(): void {
+    if (this.isDestroyed) return;
+    this.controller.setCodeBlockTheme(this.currentColorMode === 0 ? 'dark' : 'light');
   }
 
   private async recordView(): Promise<void> {
+    if (this.isDestroyed) return;
+    if (!this.fileData.sandboxPath) return;
     try {
       const dbService = MdDbService.getInstance(this.context);
       await dbService.init();
+      if (this.isDestroyed) return;
       await dbService.updateLastViewedAt(this.fileData.sandboxPath);
       this.dataVersion++;
     } catch (e) {
-      console.error('[MarkdownViewerPage] 记录浏览时间失败:', JSON.stringify(e));
+      console.error('[MarkdownViewerPage] 记录浏览时间失败: ' + JSON.stringify(e));
     }
   }
 
   private buildShareData(): systemShare.SharedData {
     const fileUriStr = fileUri.getUriFromPath(this.fileData.sandboxPath);
-    const shareData: systemShare.SharedData = new systemShare.SharedData({
+    return new systemShare.SharedData({
       utd: utd.UniformDataType.FILE,
       uri: fileUriStr,
       title: this.fileData.name,
-      description: 'Markdown文档',
+      description: DEFAULT_SHARE_DESCRIPTION,
     });
-    return shareData;
   }
 
   private doSystemShare(): void {
+    if (!this.fileData.sandboxPath) return;
     try {
       const shareData = this.buildShareData();
       this.shareController = new systemShare.ShareController(shareData);
@@ -74,53 +106,47 @@ export struct MarkdownViewerPage {
         selectionMode: systemShare.SelectionMode.SINGLE,
       });
     } catch (e) {
-      const err = e as BusinessError;
-      console.error('[MarkdownViewerPage] 拉起分享面板失败: ' + err.code + ' ' + err.message);
+      console.error('[MarkdownViewerPage] 拉起分享面板失败: ' + JSON.stringify(e));
+      promptAction.showToast({ message: '分享失败' });
+    }
+  }
+
+  private handleHarmonyShare(sharableTarget: harmonyShare.SharableTarget, shareType: string): void {
+    try {
+      const shareData = this.buildShareData();
+      sharableTarget.share(shareData);
+      console.info('[MarkdownViewerPage] ' + shareType + '已触发');
+    } catch (e) {
+      console.error('[MarkdownViewerPage] ' + shareType + '失败: ' + JSON.stringify(e));
+      sharableTarget.reject(harmonyShare.SharableErrorCode.DOWNLOAD_ERROR);
     }
   }
 
   private knockShareCallback = (sharableTarget: harmonyShare.SharableTarget): void => {
-    try {
-      const shareData = this.buildShareData();
-      sharableTarget.share(shareData);
-      console.info('[MarkdownViewerPage] 碰一碰分享已触发');
-    } catch (e) {
-      const err = e as BusinessError;
-      console.error('[MarkdownViewerPage] 碰一碰分享失败: ' + err.code + ' ' + err.message);
-      sharableTarget.reject(harmonyShare.SharableErrorCode.DOWNLOAD_ERROR);
-    }
+    this.handleHarmonyShare(sharableTarget, '碰一碰分享');
   }
 
   private gesturesShareCallback = (sharableTarget: harmonyShare.SharableTarget): void => {
-    try {
-      const shareData = this.buildShareData();
-      sharableTarget.share(shareData);
-      console.info('[MarkdownViewerPage] 隔空传送已触发');
-    } catch (e) {
-      const err = e as BusinessError;
-      console.error('[MarkdownViewerPage] 隔空传送失败: ' + err.code + ' ' + err.message);
-      sharableTarget.reject(harmonyShare.SharableErrorCode.DOWNLOAD_ERROR);
-    }
+    this.handleHarmonyShare(sharableTarget, '隔空传送');
   }
 
   private registerHarmonyShareListeners(): void {
+    if (this.isShareListenerRegistered) return;
     try {
       harmonyShare.on('knockShare', this.knockShareCallback);
-      console.info('[MarkdownViewerPage] 碰一碰监听已注册');
     } catch (e) {
-      const err = e as BusinessError;
-      console.error('[MarkdownViewerPage] 注册碰一碰监听失败: ' + err.code + ' ' + err.message);
+      console.error('[MarkdownViewerPage] 注册碰一碰监听失败: ' + JSON.stringify(e));
     }
     try {
       harmonyShare.on('gesturesShare', this.gesturesShareCallback);
-      console.info('[MarkdownViewerPage] 隔空传送监听已注册');
     } catch (e) {
-      const err = e as BusinessError;
-      console.error('[MarkdownViewerPage] 注册隔空传送监听失败: ' + err.code + ' ' + err.message);
+      console.error('[MarkdownViewerPage] 注册隔空传送监听失败: ' + JSON.stringify(e));
     }
+    this.isShareListenerRegistered = true;
   }
 
   private unregisterHarmonyShareListeners(): void {
+    if (!this.isShareListenerRegistered) return;
     try {
       harmonyShare.off('knockShare', this.knockShareCallback);
     } catch (e) {
@@ -131,35 +157,67 @@ export struct MarkdownViewerPage {
     } catch (e) {
       console.error('[MarkdownViewerPage] 注销隔空传送监听失败: ' + JSON.stringify(e));
     }
+    this.isShareListenerRegistered = false;
   }
 
   private dismissShareController(): void {
     if (this.shareController) {
-      this.shareController.off('shareCompleted');
+      try {
+        this.shareController.off('shareCompleted');
+      } catch (e) {
+        console.error('[MarkdownViewerPage] 注销分享回调失败: ' + JSON.stringify(e));
+      }
       this.shareController = null;
     }
   }
 
-  build() {
-    HdsNavDestination() {
-      Scroll(this.scroller) {
-        Column() {
-          Blank().width('100%').height(this.blankHeight);
+  @Builder
+  viewingContent() {
+    Scroll(this.scroller) {
+      Column() {
+        Blank().width('100%').height(this.blankHeight);
+        if (this.showMarkdown) {
           Markdown({
             mode: "sandbox",
             sandboxPath: this.fileData.sandboxPath,
             callback: {
-              complete: () => console.info("Markdown Load Success"),
-              fail: (code, msg) => console.error(`Error: ${code}, ${msg}`)
+              complete: () => {
+                this.isLoading = false;
+              },
+              fail: (code: number, msg: string) => {
+                this.isLoading = false;
+                console.error('[MarkdownViewerPage] Markdown加载失败: ' + code + ', ' + msg);
+                promptAction.showToast({ message: '加载失败' });
+              }
             },
             controller: this.controller
-          }).width('100%');
-        }.padding(16).width('100%');
-      }
-      .scrollBar(BarState.Off)
-      .edgeEffect(EdgeEffect.Spring)
-      .width('100%')
-      .height('100%');
+          })
+            .width('100%')
+            .transition(TransitionEffect.OPACITY.animation({ duration: 300 }))
+        }
+        if (this.isLoading) {
+          Column() {
+            LoadingProgress()
+              .width(48)
+              .height(48)
+              .color($r('sys.color.brand'))
+          }
+          .width('100%')
+          .justifyContent(FlexAlign.Center)
+          .padding({ top: 32, bottom: 32 })
+          .transition(TransitionEffect.OPACITY.animation({ duration: 300 }))
+        }
+      }.padding(16).width('100%');
+    }
+    .scrollBar(BarState.Off)
+    .edgeEffect(EdgeEffect.Spring)
+    .width('100%')
+    .height('100%');
+  }
+
+  build() {
+    HdsNavDestination() {
+      this.viewingContent();
     }
     .titleBar({
       content: {
@@ -170,9 +228,7 @@ export struct MarkdownViewerPage {
               label: '分享',
               icon: $r('sys.symbol.share'),
               isEnabled: true,
-              action: () => {
-                this.doSystemShare();
-              }
+              action: () => { this.doSystemShare(); }
             }
           }]
         }

@@ -1,7 +1,6 @@
 import { relationalStore } from '@kit.ArkData';
 import { common } from '@kit.AbilityKit';
 import { MarkdownFile, FileGroup } from '../class/MarkdownFile';
-import hilog from '@ohos.hilog';
 
 const STORE_CONFIG: relationalStore.StoreConfig = {
   name: 'md_files.db',
@@ -25,6 +24,7 @@ const SQL_CREATE_GROUPS_TABLE = `CREATE TABLE IF NOT EXISTS file_groups (
 
 const SQL_ADD_GROUP_ID = `ALTER TABLE markdown_files ADD COLUMN groupId INTEGER DEFAULT -1`;
 const SQL_ADD_LAST_VIEWED_AT = `ALTER TABLE markdown_files ADD COLUMN lastViewedAt INTEGER DEFAULT 0`;
+const SQL_ADD_CREATED_AT = `ALTER TABLE markdown_files ADD COLUMN createdAt INTEGER DEFAULT 0`;
 
 export class MdDbService {
   private static instance: MdDbService | null = null;
@@ -62,12 +62,16 @@ export class MdDbService {
       const columns = resultSet.columnNames;
       const hasGroupId = columns.includes('groupId');
       const hasLastViewedAt = columns.includes('lastViewedAt');
+      const hasCreatedAt = columns.includes('createdAt');
       resultSet.close();
       if (!hasGroupId) {
         await store.executeSql(SQL_ADD_GROUP_ID);
       }
       if (!hasLastViewedAt) {
         await store.executeSql(SQL_ADD_LAST_VIEWED_AT);
+      }
+      if (!hasCreatedAt) {
+        await store.executeSql(SQL_ADD_CREATED_AT);
       }
     } catch (err) {
       console.error('[MdDbService] 升级检查失败:', JSON.stringify(err));
@@ -90,7 +94,8 @@ export class MdDbService {
       size: file.size,
       isStar: file.isStar ? 1 : 0,
       groupId: file.groupId,
-      lastViewedAt: file.lastViewedAt
+      lastViewedAt: file.lastViewedAt,
+      createdAt: file.createdAt
     };
     return store.insert('markdown_files', value, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
   }
@@ -107,7 +112,8 @@ export class MdDbService {
           size: file.size,
           isStar: file.isStar ? 1 : 0,
           groupId: file.groupId,
-          lastViewedAt: file.lastViewedAt
+          lastViewedAt: file.lastViewedAt,
+          createdAt: file.createdAt
         };
         await store.insert('markdown_files', value, relationalStore.ConflictResolution.ON_CONFLICT_REPLACE);
       }
@@ -370,8 +376,14 @@ export class MdDbService {
       } catch (e) {
         lastViewedAt = 0;
       }
+      let createdAt = 0;
+      try {
+        createdAt = resultSet.getLong(resultSet.getColumnIndex('createdAt'));
+      } catch (e) {
+        createdAt = 0;
+      }
       const groupName = groups.get(groupId) ?? '';
-      result.push(new MarkdownFile(name, uri, sandboxPath, 0, isStar, size, groupId, groupName, lastViewedAt));
+      result.push(new MarkdownFile(name, uri, sandboxPath, 0, isStar, size, groupId, groupName, lastViewedAt, createdAt));
     } while (resultSet.goToNextRow());
     resultSet.close();
     return result;

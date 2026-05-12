@@ -65,7 +65,7 @@ export struct EmptyView {
           let destFile = fs.openSync(targetPath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
           fs.copyFileSync(srcFile.fd, destFile.fd);
           const stats = fs.statSync(targetPath);
-          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size);
+          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size, false, undefined, -1, '', 0, Date.now());
           this.dataSource.pushItem(mdFile);
           newFiles.push(mdFile);
           fs.closeSync(srcFile);

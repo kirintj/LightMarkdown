@@ -19,8 +19,9 @@ export class MarkdownFile {
   groupId: number;
   groupName: string;
   lastViewedAt: number;
+  createdAt: number;
 
-  constructor(name: string, uri: string, sandboxPath: string, size: number, isStar: boolean = false, formattedSize?: string, groupId: number = -1, groupName: string = '', lastViewedAt: number = 0) {
+  constructor(name: string, uri: string, sandboxPath: string, size: number, isStar: boolean = false, formattedSize?: string, groupId: number = -1, groupName: string = '', lastViewedAt: number = 0, createdAt: number = 0) {
     this.name = name;
     this.uri = uri;
     this.sandboxPath = sandboxPath;
@@ -29,6 +30,7 @@ export class MarkdownFile {
     this.groupId = groupId;
     this.groupName = groupName;
     this.lastViewedAt = lastViewedAt;
+    this.createdAt = createdAt;
   }
 }
 export class FileDataSource implements IDataSource {

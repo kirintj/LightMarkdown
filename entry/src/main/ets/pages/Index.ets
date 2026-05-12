@@ -2,13 +2,12 @@ import { HdsAnimationMode, hdsMaterial, HdsNavigation, HdsTabs, HdsTabsControlle
 import { DarkModeSetting, Mine } from 'mine';
 import {  SymbolGlyphModifier, window } from '@kit.ArkUI';
 import { ConfigurationConstant } from '@kit.AbilityKit';
-import { MarkdownViewerPage, MdView, MarkdownFile, FileDataSource, MdDbService, FileGroup } from 'markdown';
+import { MarkdownViewerPage, MdView, MarkdownFile, FileDataSource, MdDbService, FileGroup, MultiSelectPage } from 'markdown';
 import { common } from '@kit.AbilityKit';
 import picker from '@ohos.file.picker';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { Star, StarredPage, GroupDetailPage, GroupListPage, RecentPage } from 'star';
 import { motion } from '@kit.MultimodalAwarenessKit';
-
 @Entry
 @Component
 struct Index {
@@ -18,7 +17,7 @@ struct Index {
   @State currentIndex: number = 0;
 
   @State s1: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.house_fill'));
-  @State s2: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.square_fill_grid_2x2'));
+  @State s2: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.discover_fill'));
   @State s3: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.person_crop_circle_fill_1'));
   @State hand: number = 0;
   @StorageProp('currentColorMode') @Watch('onColorModeChange') currentColorMode: number =
@@ -76,6 +75,8 @@ struct Index {
       GroupListPage()
     } else if (name === 'Recent') {
       RecentPage()
+    } else if (name === 'MultiSelect') {
+      MultiSelectPage()
     } else if (name === 'Mine') {
       Mine()
     }else if(name === 'DarkModeSetting'){
@@ -91,7 +92,8 @@ struct Index {
         }
         .tabBar(new BottomTabBarStyle({
           normal: this.s1,
-        }, '首页'))
+        }, '首页')
+          )
 
         TabContent() {
           Star()
@@ -178,7 +180,7 @@ struct Index {
           fs.copyFileSync(srcFile.fd, destFile.fd);
 
           const stats = fs.statSync(targetPath);
-          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size);
+          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size, false, undefined, -1, '', 0, Date.now());
           this.dataSource.pushItem(mdFile);
           newFiles.push(mdFile);
 

@@ -1,11 +1,11 @@
 import { ScrollEffectType, HdsNavDestination, HdsNavDestinationTitleMode, PrefixCustomBuilder} from '@hms.hds.hdsBaseComponent';
-import { LengthMetrics, promptAction, SymbolGlyphModifier, curves } from '@kit.ArkUI';
+import { LengthMetrics, promptAction, SymbolGlyphModifier } from '@kit.ArkUI';
 import { picker } from '@kit.CoreFileKit';
 import { fileIo as fs, fileUri } from '@kit.CoreFileKit';
-import { MarkdownFile, FileDataSource } from '../class/MarkdownFile';
+import { MarkdownFile, FileGroup, FileDataSource } from '../class/MarkdownFile';
 import { MarkdownViewerPage } from '../component/MarkdownViewerPage';
 import { common } from '@kit.AbilityKit';
-import { hdsEffect, HdsListItem, hdsMaterial } from '@kit.UIDesignKit';
+import { hdsEffect, HdsListItem, hdsMaterial, IconStyleMode } from '@kit.UIDesignKit';
 import { EmptyView } from '../component/EmptyComponent';
 import { MdDbService } from '../service/MdDbService';
 import { ItemRestriction, SegmentButton, SegmentButtonOptions, SegmentButtonTextItem } from '@kit.ArkUI';
@@ -27,10 +27,8 @@ export struct MdView {
   @StorageProp('safeTop') safeTop: number = 0;
   @StorageProp('safeBottom') safeBottom: number = 0;
   @Consume('dataSource') dataSource: FileDataSource;
-  @Consume('dataVersion') dataVersion: number;
+  @Consume('dataVersion') @Watch('onDataVersionChange') dataVersion: number;
   @State searchKeyword: string = '';
-  @State isSearchExpanded: boolean = false;
-  @State geometryId: string = '';
   @State filteredFiles: MarkdownFile[] = [];
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
   private shareController: systemShare.ShareController | null = null;
@@ -52,19 +50,57 @@ export struct MdView {
   @State allFiles: MarkdownFile[] = [];
   @State controller: hdsEffect.ShaderEffectController = new hdsEffect.ShaderEffectController();
   private isFirstShow: boolean = true;
+  @State sortMode: number = 0;
+  @State menuVisible: boolean = false;
+  @State showGroupSheet: boolean = false;
+  @State groups: FileGroup[] = [];
+  @State groupTargetFile: MarkdownFile | null = null;
+  @State newGroupName: string = '';
+  @State s1: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.plus_circle'));
+  @State s2: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.checkmark_circle'));
+  @State s3: SymbolGlyphModifier = new SymbolGlyphModifier($r('sys.symbol.person_crop_circle_fill_1'));
+  @State expandSymbolModifier: SymbolGlyphModifier =
+    new SymbolGlyphModifier($r('sys.symbol.chevron_down')).fontSize(24)
 
   private isStarTab(): boolean {
     return this.tabSelectedIndexes.length > 0 && this.tabSelectedIndexes[0] === 1;
   }
 
+  private sortFiles(files: MarkdownFile[]): MarkdownFile[] {
+    const sorted = Array.from(files);
+    if (this.sortMode === 0) {
+      sorted.sort((a: MarkdownFile, b: MarkdownFile) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    } else if (this.sortMode === 1) {
+      sorted.sort((a: MarkdownFile, b: MarkdownFile) => b.createdAt - a.createdAt);
+    } else if (this.sortMode === 2) {
+      sorted.sort((a: MarkdownFile, b: MarkdownFile) => {
+        const aHasGroup: boolean = a.groupId !== -1;
+        const bHasGroup: boolean = b.groupId !== -1;
+        if (aHasGroup !== bHasGroup) {
+          return aHasGroup ? -1 : 1;
+        }
+        if (aHasGroup && bHasGroup) {
+          const groupCmp: number = a.groupName.localeCompare(b.groupName);
+          if (groupCmp !== 0) return groupCmp;
+        }
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+      });
+    }
+    return sorted;
+  }
+
   private refreshStarredFiles(): void {
-    this.starredFiles = this.allFiles.filter((f: MarkdownFile) => f.isStar);
+    this.starredFiles = this.sortFiles(this.allFiles.filter((f: MarkdownFile) => f.isStar));
   }
 
   private refreshData(): void {
-    this.allFiles = Array.from(this.dataSource.getAll());
+    this.allFiles = this.sortFiles(Array.from(this.dataSource.getAll()));
     this.refreshStarredFiles();
     this.applySearchFilter();
+  }
+
+  private onDataVersionChange(): void {
+    this.refreshData();
   }
 
   @Builder
@@ -83,27 +119,6 @@ export struct MdView {
   }
 
 
-  private openSearch(): void {
-    this.geometryId = 'search';
-    this.getUIContext().animateTo({
-      curve: curves.interpolatingSpring(0, 1, 342, 38),
-      onFinish: () => { this.geometryId = ''; }
-    }, () => {
-      this.isSearchExpanded = true;
-    });
-  }
-
-  private closeSearch(): void {
-    if (!this.isSearchExpanded) return;
-    this.geometryId = 'search';
-    this.getUIContext().animateTo({
-      curve: curves.interpolatingSpring(0, 1, 342, 38),
-      onFinish: () => { this.geometryId = ''; }
-    }, () => {
-      this.isSearchExpanded = false;
-    });
-  }
-
   @Builder
   BottomBuilder(): void {
     Column() {
@@ -112,47 +127,6 @@ export struct MdView {
           value: this.searchKeyword
         })
           .keyboardAppearance(KeyboardAppearance.IMMERSIVE)
-          .focusOnTouch(false)
-          .focusable(false)
-          .enableKeyboardOnFocus(false)
-          .onClick(() => { this.openSearch(); })
-          .geometryTransition(this.geometryId, { follow: true })
-          .transition(TransitionEffect.OPACITY.animation({
-            duration: 200,
-            curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1)
-          }));
-      }
-    .padding({ left: 16, right: 16 });
-  }
-
-  @Builder
-  SearchExpandedBuilder(): void {
-    Column() {
-      Row() {
-        Column(){
-          SymbolGlyph($r('sys.symbol.chevron_backward'))
-            .fontSize(20)
-            .borderRadius('50%')
-            .fontColor([$r('sys.color.font_primary')])
-            .onClick(() => { this.closeSearch(); })
-            .transition(TransitionEffect.asymmetric(
-              TransitionEffect.opacity(0)
-                .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 200, delay: 150 }),
-              TransitionEffect.opacity(0)
-                .animation({ curve: curves.cubicBezierCurve(0.33, 0, 0.67, 1), duration: 200 })
-            ));
-        }
-        .justifyContent(FlexAlign.Center)
-        .width(40)
-        .height(40)
-        .backgroundColor($r('sys.color.comp_background_tertiary'))
-        .borderRadius('50%')
-        .margin({right: 8})
-
-        Search({ placeholder: '搜索markdown文件', value: this.searchKeyword })
-          .keyboardAppearance(KeyboardAppearance.IMMERSIVE)
-          .layoutWeight(1)
-          .searchButton('搜索')
           .onChange((value: string) => {
             this.searchKeyword = value;
             this.applySearchFilter();
@@ -160,95 +134,9 @@ export struct MdView {
           .onSubmit((value: string) => {
             this.searchKeyword = value;
             this.applySearchFilter();
-          })
-          .geometryTransition(this.geometryId, { follow: true })
-          
+          });
       }
-      .width('100%')
-      .padding({ left: 16, right: 16, top: 8, bottom: 8 })
-      .margin({ top: this.safeTop });
-
-      if (this.searchKeyword && this.filteredFiles.length === 0) {
-        Column() {
-          Text('未找到匹配文件')
-            .fontSize(16)
-            .fontColor($r('sys.color.font_secondary'));
-        }
-        .width('100%')
-        .layoutWeight(1)
-        .justifyContent(FlexAlign.Center);
-      } else if (this.searchKeyword) {
-        List({ space: 12 }) {
-          ForEach(this.filteredFiles, (item: MarkdownFile) => {
-            ListItem() {
-              Row() {
-                SymbolGlyph($r('sys.symbol.doc_plaintext_fill'))
-                  .fontSize($r('sys.float.Title_M'))
-                  .fontColor([$r('sys.color.brand')]);
-                Column() {
-                  Text(item.name)
-                    .fontSize($r('sys.float.Subtitle_M'))
-                    .fontWeight(FontWeight.Medium)
-                    .fontColor($r('sys.color.font_primary'))
-                    .maxLines(1)
-                    .textOverflow({ overflow: TextOverflow.Ellipsis });
-                  if (item.groupName) {
-                    Text(item.groupName)
-                      .padding({ left: 8, right: 8, top: 2, bottom: 2 })
-                      .fontSize($r('sys.float.Caption_S'))
-                      .fontWeight(FontWeight.Bold)
-                      .fontColor($r('sys.color.white'))
-                      .backgroundColor($r('sys.color.confirm'))
-                      .borderRadius(8)
-                      .margin({ top: 2 });
-                  }
-                }
-                .alignItems(HorizontalAlign.Start)
-                .margin({ left: $r('sys.float.padding_level6') })
-                .layoutWeight(1);
-                Blank();
-                if (item.isStar) {
-                  SymbolGlyph($r('sys.symbol.star_fill'))
-                    .fontSize(16)
-                    .fontColor(['#FFC83D']);
-                }
-              }
-              .height(56)
-              .width('100%')
-              .padding($r('sys.float.padding_level6'))
-              .backgroundColor($r('sys.color.comp_background_primary'))
-              .borderRadius(16)
-              .onClick(() => {
-                this.closeSearch();
-                setTimeout(() => {
-                  this.pathStack.pushPath({ name: 'MarkdownViewer', param: item });
-                }, 250);
-              });
-            }
-          }, (item: MarkdownFile) => `${item.sandboxPath}_${item.isStar}_${item.groupName}`);
-        }
-        .height(undefined)
-        .width('100%')
-        .layoutWeight(1)
-        .padding({ left: 16, right: 16 });
-      } else {
-        Column() {
-          SymbolGlyph($r('sys.symbol.doc_plaintext'))
-            .fontSize(48)
-            .fontColor([$r('sys.color.font_tertiary')])
-            .margin({ bottom: 12 });
-          Text('输入关键词搜索文件')
-            .fontSize(16)
-            .fontColor($r('sys.color.font_secondary'));
-        }
-        .width('100%')
-        .layoutWeight(1)
-        .justifyContent(FlexAlign.Center);
-      }
-    }
-    .width('100%')
-    .height('100%')
-    .backgroundColor($r('sys.color.background_secondary'));
+    .padding({ left: 16, right: 16 });
   }
 
   aboutToAppear(): void {
@@ -367,7 +255,7 @@ export struct MdView {
         for (const fileName of fileNames) {
           const targetPath = `${targetDir}/${fileName}`;
           const stats = fs.statSync(targetPath);
-          fsFiles.push(new MarkdownFile(fileName, '', targetPath, stats.size));
+          fsFiles.push(new MarkdownFile(fileName, '', targetPath, stats.size, false, undefined, -1, '', 0, stats.mtime * 1000));
         }
       }
     } catch (err) {
@@ -394,7 +282,7 @@ export struct MdView {
     const source: MarkdownFile[] = this.isStarTab()
       ? this.starredFiles
       : this.allFiles;
-    this.filteredFiles = source.filter((f: MarkdownFile) => f.name.toLowerCase().includes(keyword));
+    this.filteredFiles = this.sortFiles(source.filter((f: MarkdownFile) => f.name.toLowerCase().includes(keyword)));
   }
 
   async readPickerFile(): Promise<void> {
@@ -428,7 +316,7 @@ export struct MdView {
           fs.copyFileSync(srcFile.fd, destFile.fd);
 
           const stats = fs.statSync(targetPath);
-          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size);
+          const mdFile = new MarkdownFile(srcFile.name, sourceUri, targetPath, stats.size, false, undefined, -1, '', 0, Date.now());
           this.dataSource.pushItem(mdFile);
           newFiles.push(mdFile);
 
@@ -566,6 +454,164 @@ export struct MdView {
     }
   }
 
+  private async openGroupSheet(item: MarkdownFile): Promise<void> {
+    this.groupTargetFile = item;
+    const dbService = MdDbService.getInstance(this.context);
+    this.groups = await dbService.queryAllGroups();
+    this.showGroupSheet = true;
+  }
+
+  private async assignToGroup(groupId: number, groupName: string): Promise<void> {
+    if (!this.groupTargetFile) return;
+    try {
+      const dbService = MdDbService.getInstance(this.context);
+      await dbService.setFileGroup(this.groupTargetFile.sandboxPath, groupId);
+      this.dataSource.updateItemGroup(this.groupTargetFile.sandboxPath, groupId, groupName);
+      this.dataVersion++;
+      this.showGroupSheet = false;
+      this.groupTargetFile = null;
+      promptAction.openToast({ message: `已加入分组「${groupName}」`, duration: 1000 }).catch(() => {});
+    } catch (e) {
+      console.error('[MdView] 分组失败:', JSON.stringify(e));
+    }
+  }
+
+  private async removeFromGroup(): Promise<void> {
+    if (!this.groupTargetFile) return;
+    try {
+      const dbService = MdDbService.getInstance(this.context);
+      await dbService.removeFileGroup(this.groupTargetFile.sandboxPath);
+      this.dataSource.updateItemGroup(this.groupTargetFile.sandboxPath, -1, '');
+      this.dataVersion++;
+      this.showGroupSheet = false;
+      this.groupTargetFile = null;
+      promptAction.openToast({ message: '已移出分组', duration: 1000 }).catch(() => {});
+    } catch (e) {
+      console.error('[MdView] 移出分组失败:', JSON.stringify(e));
+    }
+  }
+
+  private async createAndAssignGroup(): Promise<void> {
+    if (!this.groupTargetFile || !this.newGroupName.trim()) return;
+    const groupName: string = this.newGroupName.trim();
+    try {
+      const dbService = MdDbService.getInstance(this.context);
+      const groupId: number = await dbService.createGroup(groupName);
+      await dbService.setFileGroup(this.groupTargetFile.sandboxPath, groupId);
+      this.dataSource.updateItemGroup(this.groupTargetFile.sandboxPath, groupId, groupName);
+      this.dataVersion++;
+      this.newGroupName = '';
+      this.showGroupSheet = false;
+      this.groupTargetFile = null;
+      promptAction.openToast({ message: `已创建分组「${groupName}」并加入`, duration: 1000 }).catch(() => {});
+    } catch (e) {
+      console.error('[MdView] 创建分组失败:', JSON.stringify(e));
+    }
+  }
+
+  @Builder
+  groupSheetBuilder() {
+    HdsNavDestination(){
+      Column() {
+        Row() {
+          TextInput({ placeholder: '创建新分组', text: this.newGroupName })
+            .layoutWeight(1)
+            .onChange((value: string) => { this.newGroupName = value; })
+            .onSubmit(() => { this.createAndAssignGroup(); });
+          Button('创建')
+            .type(ButtonType.Capsule)
+            .backgroundColor($r('sys.color.brand'))
+            .fontColor(Color.White)
+            .height(40)
+            .margin({ left: 8 })
+            .enabled(this.newGroupName.trim().length > 0)
+            .onClick(() => { this.createAndAssignGroup(); });
+        }
+        .width('100%')
+        .margin({ bottom : 12 });
+        if (this.groups.length > 0) {
+          List({ space: 8 }) {
+            ForEach(this.groups, (group: FileGroup) => {
+              ListItem() {
+                Row() {
+                  SymbolGlyph($r('sys.symbol.arrow_right_folder_fill'))
+                    .fontSize(24)
+                    .fontColor([$r('sys.color.brand')]);
+                  Text(group.name)
+                    .fontSize(16)
+                    .fontColor($r('sys.color.font_primary'))
+                    .margin({ left: 12 })
+                    .layoutWeight(1);
+                  if (this.groupTargetFile && this.groupTargetFile.groupId === group.id) {
+                    SymbolGlyph($r('sys.symbol.checkmark_circle'))
+                      .fontSize(24)
+                      .fontColor([$r('sys.color.brand')]);
+                  }
+                }
+                .backgroundColor(this.groupTargetFile && this.groupTargetFile.groupId === group.id? $r('sys.color.comp_emphasize_secondary'):$r('sys.color.comp_background_primary'))
+                .height(56)
+                .width('100%')
+                .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+                .borderRadius(16)
+                .onClick(() => { this.assignToGroup(group.id, group.name); });
+              }
+            }, (group: FileGroup) => group.id.toString());
+          }
+        }
+        if (this.groupTargetFile && this.groupTargetFile.groupId !== -1) {
+          Row() {
+            SymbolGlyph($r('sys.symbol.clean_fill'))
+              .fontSize(24)
+              .fontColor([$r('sys.color.warning')]);
+            Text('移出当前分组')
+              .fontColor($r('sys.color.warning'))
+              .margin({ left: 12 })
+              .layoutWeight(1);
+          }
+          .backgroundColor($r('sys.color.comp_background_primary'))
+          .height(56)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+          .borderRadius(16)
+          .margin({ top: 12 })
+          .onClick(() => { this.removeFromGroup(); });
+        }
+      }
+      .padding({right: 16, left: 16})
+      .width('100%')
+    }
+    .backgroundColor($r('sys.color.background_secondary'))
+    .hideBackButton(true)
+    .titleMode(HdsNavDestinationTitleMode.MODAL)
+    .titleBar({
+      style: {
+        scrollEffectOpts: {
+          scrollEffectType: ScrollEffectType.GRADIENT_BLUR,
+        },
+        systemMaterialEffect: {
+          materialType: hdsMaterial.MaterialType.IMMERSIVE,
+          materialLevel: hdsMaterial.MaterialLevel.EXQUISITE
+        },
+      },
+      enableComponentSafeArea: true,
+      content: {
+        title: {
+          mainTitle: '分组',
+        },
+        menu: {
+          value: [{
+            content: {
+              icon: $r('sys.symbol.xmark'),
+              action: () => {
+                this.showGroupSheet = false;
+              },
+            }
+          }]
+        },
+      },
+    })
+  }
+
   @Builder
   itemSwipeBuilder(item: MarkdownFile): void {
     Row() {
@@ -578,6 +624,7 @@ export struct MdView {
       .width(48)
       .height(48)
       .margin({ left: 8 })
+      .onClick(() => { this.openGroupSheet(item); });
 
       Button({ type: ButtonType.Circle }) {
         SymbolGlyph($r('sys.symbol.star_fill'))
@@ -592,9 +639,92 @@ export struct MdView {
     }
   }
   @Builder
+  SubMenu() {
+    Menu() {
+      MenuItem({
+        content: "按名称排序",
+        symbolEndIcon: this.sortMode === 0 ? this.s2 : null,
+      })
+        .onChange(()=>{
+          this.menuVisible = false; this.sortMode = 0; this.refreshData()
+        })
+      MenuItem({
+        content: "按时间排序",
+        symbolEndIcon: this.sortMode === 1 ? this.s2 : null
+      })
+        .onChange(()=>{
+          this.menuVisible = false; this.sortMode = 1; this.refreshData()
+        })
+      MenuItem({
+        content: "按分组排序",
+        symbolEndIcon: this.sortMode === 2 ? this.s2 : null
+      })
+        .onChange(()=>{
+          this.menuVisible = false; this.sortMode = 2; this.refreshData()
+        })
+    }
+    .menuItemDivider(
+      {
+        strokeWidth: LengthMetrics.vp(0.5),
+        color: $r('sys.color.comp_divider'),
+        mode: DividerMode.EMBEDDED_IN_MENU
+      }
+    )
+  }
+  @Builder
+  MyMenu(){
+    Menu() {
+      MenuItem({
+        content: "添加文件",
+        symbolEndIcon: this.s1
+      })
+        .onChange(()=>{
+          this.menuVisible = false; this.readPickerFile();
+        })
+      MenuItem({
+        content: "排序方式",
+        builder: (): void => this.SubMenu(),
+      })
+      MenuItem({
+        content: "多选",
+        symbolEndIcon: this.s2
+      })
+        .onChange(() => {
+          this.menuVisible = false;
+          this.pathStack.pushPath({ name: 'MultiSelect' });
+        })
+    }
+    .width(200)
+    .menuItemDivider(
+      {
+        strokeWidth: LengthMetrics.vp(0.5),
+        color: $r('sys.color.comp_divider'),
+        mode: DividerMode.EMBEDDED_IN_MENU
+      }
+    )
+    .subMenuExpandingMode(SubMenuExpandingMode.EMBEDDED_EXPAND)
+    .subMenuExpandSymbol(this.expandSymbolModifier)
+  }
+  @Builder
   ContentBuilder(){
     HdsNavDestination() {
       Stack({ alignContent: Alignment.TopStart }) {
+        Column()
+          .width(1)
+          .height(1)
+          .position({ x: '100%', y: 0 })
+          .translate({ x: -16, y: this.safeTop + 47 })
+          .bindMenu(this.menuVisible, this.MyMenu(),{
+            placement: Placement.BottomRight,
+            onDisappear: () => { this.menuVisible = false; },
+            backgroundBlurStyle: BlurStyle.BACKGROUND_THIN,
+            backgroundBlurStyleOptions: {
+              colorMode: ThemeColorMode.SYSTEM,
+              policy: BlurStyleActivePolicy.ALWAYS_ACTIVE,
+              adaptiveColor: AdaptiveColor.AVERAGE,
+              scale: 1
+            },
+          })
         if (this.allFiles.length > 0) {
           Scroll() {
             Column() {
@@ -717,9 +847,10 @@ export struct MdView {
                           swipeActionOptions: {
                             icons: [
                               {
-                                icon: new SymbolGlyphModifier($r('sys.symbol.arrow_right_folder_fill')).fontColor([Color.White]).fontSize(16),
+                                icon: new SymbolGlyphModifier($r('sys.symbol.folder_fill')).fontColor([Color.White]).fontSize(16),
                                 backgroundColor: '#36C972',
-                                onAction: async () => {
+                                onAction: () => {
+                                  this.openGroupSheet(item);
                                 }
                               },
                               {
@@ -836,7 +967,8 @@ export struct MdView {
                             {
                               icon: new SymbolGlyphModifier($r('sys.symbol.arrow_right_folder_fill')).fontColor([Color.White]).fontSize(16),
                               backgroundColor: '#36C972',
-                              onAction: async () => {
+                              onAction: () => {
+                                this.openGroupSheet(item);
                               }
                             },
                             {
@@ -949,12 +1081,11 @@ export struct MdView {
           value: [
             {
               content: {
-                label: 'menu1',
-                icon: $r('sys.symbol.plus'),
+                label: 'moreMenu',
+                icon: $r('sys.symbol.dot_grid_2x2'),
                 isEnabled: true,
                 action: () => {
-                  console.log('click');
-                  this.readPickerFile();
+                  this.menuVisible = !this.menuVisible;
                 }
               }
             }
@@ -981,10 +1112,18 @@ export struct MdView {
       }
       this.loadLocalFiles();
     })
-    .bindContentCover(this.isSearchExpanded, this.SearchExpandedBuilder(), {
-      modalTransition: ModalTransition.NONE,
-      onDisappear: () => { this.closeSearch(); }
+    .bindSheet(this.showGroupSheet, this.groupSheetBuilder(), {
+      detents: [SheetSize.MEDIUM, SheetSize.LARGE, 200],
+      showClose: false,
+      enableFloatingDragBar: true,
+      blurStyle: BlurStyle.Thin,
+      dragBar: false,
+      onDisappear: () => {
+        this.showGroupSheet = false;
+        this.groupTargetFile = null;
+      }
     });
+
   }
   build(): void {
       this.ContentBuilder()
