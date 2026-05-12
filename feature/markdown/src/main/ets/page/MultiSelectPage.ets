@@ -414,14 +414,15 @@ export struct MultiSelectPage {
   }
 
   @Builder
-  actionButton(icon: Resource, label: string, action: () => void): void {
+  actionButton(icon: Resource, label: string, color: string | Resource ,action: () => void): void {
     Column() {
       SymbolGlyph(icon)
         .fontSize(24)
-        .fontColor([$r('sys.color.font_primary')])
+        .fontColor([color])
       Text(label)
-        .fontSize(12)
-        .fontColor($r('sys.color.font_secondary'))
+        .fontSize(9)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(color)
         .margin({ top: 4 })
     }
     .layoutWeight(1)
@@ -441,6 +442,7 @@ export struct MultiSelectPage {
           Column() {
             Blank().height(this.safeTop + 56);
             this.fileListBuilder();
+            Blank().height(this.safeBottom+ 56)
           }
           .width('100%')
         }
@@ -456,10 +458,10 @@ export struct MultiSelectPage {
         }
         ){
           Row() {
-            this.actionButton($r('sys.symbol.share'), '分享', (): void => { this.doShare(); });
-            this.actionButton($r('sys.symbol.folder_fill'), '分组', (): void => { this.doGroup(); });
-            this.actionButton($r('sys.symbol.star_fill'), '收藏', (): void => { this.doStar(); });
-            this.actionButton($r('sys.symbol.trash_fill'), '删除', (): void => { this.doDelete(); });
+            this.actionButton($r('sys.symbol.share'), '分享', '#3A7BFF', (): void => { this.doShare(); });
+            this.actionButton($r('sys.symbol.folder_fill'), '分组', '#36C972', (): void => { this.doGroup(); });
+            this.actionButton($r('sys.symbol.star_fill'), '收藏', '#FFC83D', (): void => { this.doStar(); });
+            this.actionButton($r('sys.symbol.trash_fill'), '删除', '#FF5A5F',(): void => { this.doDelete(); });
           }
           .justifyContent(FlexAlign.SpaceAround)
           .width('100%')
